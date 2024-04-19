@@ -6,7 +6,7 @@ use App\Models\{User, Transaction};
 use Illuminate\Http\Request;
 use App\Services\Transaction\{TransactionCreateService, TransactionDestroyService};
 use App\Repository\TransactionRepository;
-use App\Http\Requests\{TransactionStoreRequest, TransactionUpdateRequest};
+use App\Http\Requests\TransactionStoreRequest;
 use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
