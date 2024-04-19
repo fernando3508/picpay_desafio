@@ -14,13 +14,15 @@ return new class extends Migration
         Schema::create('user', function (Blueprint $table) {
             $table->id('id_user');
             $table->string('nome');
-            $table->string('cpf')->unique();
+            $table->string('cpf_cnpj', 255)->unique();
             $table->string('email')->unique();
             $table->enum('tipo', ['l', 'c'])->default('c');
+            $table->decimal('saldo', 10, 2)->default(0);
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

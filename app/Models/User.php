@@ -8,10 +8,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\{Model, SoftDeletes};
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+
+    CONST LOJISTA = 'l';
+    CONST USUARIO_COMUM = 'c';
 
     protected $table = 'user';
     protected $primaryKey = 'id_user';
@@ -23,8 +27,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'nome',
-        'cpf',
+        'cpf_cnpj',
         'tipo',
+        'saldo',
         'email',
         'password',
     ];
@@ -49,13 +54,23 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function transactions_senders()
+    protected function tipo(): Attribute
     {
-      return $this->hasMany(Transaction::class, $this->primaryKey, 'sender');
+        return Attribute::make(
+            get: fn (string $value) => $value == self::LOJISTA ? 'lojista' : 'usuário',
+            set: fn (string $value) => strtolower($value) == 'lojista' ? self::LOJISTA : self::USUARIO_COMUM,
+        );
     }
 
-    public function transcations_receiver()
+    // Pagamentos
+    public function payments()
     {
-      return $this->hasMany(Transaction::class, $this->primaryKey, 'receiver');
+      return $this->hasMany(Transaction::class, 'id_payer', $this->primaryKey)->withTrashed();
+    }
+
+    // Cobranças
+    public function charges()
+    {
+      return $this->hasMany(Transaction::class, 'id_payee', $this->primaryKey)->withTrashed();
     }
 }

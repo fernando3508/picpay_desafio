@@ -13,19 +13,21 @@ class Transaction extends Model
     protected $primaryKey = 'id_transaction';
 
     protected $fillable = [
-      'sender',
-      'receiver',
-      'amount'
+      'id_payer',
+      'id_payee',
+      'value'
     ];
 
-    public function sender()
+    // Pagador(a)
+    public function payer()
     {
-      return $this->hasOne(User::class, 'id_user', 'sender');
+      return $this->hasOne(User::class, 'id_user', 'id_payer');
     }
 
-    public function receiver()
+    // Beneficiário(a)
+    public function payee()
     {
-      return $this->hasOne(User::class, 'id_user', 'receiver');
+      return $this->hasOne(User::class, 'id_user', 'id_payee');
     }
 
 }
