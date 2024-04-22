@@ -12,6 +12,8 @@ docker-compose up -d
 docker exec -it picpay_web php artisan migrate
 ```
 
+![Alt text](/screenshots/cap1.png?raw=true)
+
 Endpoints
 ----------
 
@@ -25,11 +27,15 @@ docker exec -it picpay_web curl -s -d '{"nome":"Fernando M. Martins", "email":"f
 docker exec -it picpay_web curl -s -d "nome=Michelle SobreNome&email=michelle@gmail.com&cpf=28462927013&tipo=usuario&saldo=1500.50" -H "Accept: application/json"  -X POST http://localhost/api/user | jq
 ```
 
+![Alt text](/screenshots/cap2.png?raw=true)
+
 ## Listar Usuários
 
 ```
 docker exec -it picpay_web curl -s -H "Accept: application/json" http://localhost/api/user | jq
 ```
+
+![Alt text](/screenshots/cap3.png?raw=true)
 
 ### Filtros
 
@@ -38,6 +44,8 @@ docker exec -it picpay_web curl -s -H "Accept: application/json" http://localhos
 ```
 docker exec -it picpay_web curl -s -H "Accept: application/json" http://localhost/api/user?tipo=lojista | jq
 ```
+
+![Alt text](/screenshots/cap4.png?raw=true)
 
 #### Nome
 
@@ -57,11 +65,15 @@ docker exec -it picpay_web curl -s -H "Accept: application/json" http://localhos
 docker exec -it picpay_web curl -s -H "Accept: application/json" 'http://localhost/api/user?email=michelle@gmail.com&tipo=usuario&cpf=28462927013' | jq
 ```
 
+![Alt text](/screenshots/cap5.png?raw=true)
+
 ## Criar Transação
 
 ```
 docker exec -it picpay_web curl -s -d '{"payer":2, "payee":1, "value":"1.51"}' -H "Content-Type: application/json" -H "Accept: application/json"  -X POST http://localhost/api/transaction | jq
 ```
+
+![Alt text](/screenshots/cap6.png?raw=true)
 
 ## Deletar Transação
 
@@ -69,11 +81,15 @@ docker exec -it picpay_web curl -s -d '{"payer":2, "payee":1, "value":"1.51"}' -
 docker exec -it picpay_web curl -s -H "Accept: application/json" -X DELETE http://localhost/api/transaction/1 | jq
 ```
 
+![Alt text](/screenshots/cap7.png?raw=true)
+
 ## Listar Transações
 
 ```
 docker exec -it picpay_web curl -s -H "Accept: application/json" http://localhost/api/transaction | jq
 ```
+
+![Alt text](/screenshots/cap8.png?raw=true)
 
 ## Endpoints Postman
 
