@@ -31,7 +31,7 @@ class TransactionController extends Controller
         if(TransactionCreateService::handle(User::find($request->get('payer')), User::find($request->get('payee')), $request->get('value')))
         {
           DB::commit();
-          return response()->json('Transação efetuado com sucesso.');
+          return response()->json('Transação efetuada com sucesso.');
         }
       } catch(\Exception $e){
         DB::rollBack();
@@ -55,7 +55,7 @@ class TransactionController extends Controller
         try {
           TransactionDestroyService::handle($transaction);
           DB::commit();
-          return response()->json('Transação deletado com sucesso.');
+          return response()->json('Transação deletada com sucesso.');
         } catch(\Exception $e){
           DB::rollBack();
           return response()->json($e->getMessage());
