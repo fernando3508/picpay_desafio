@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\Repository\Filtros\User\{FiltroNome, FiltroEmail, FiltroTipo, FiltroCNPJ, FiltroCPF};
 
 abstract class UserRepository
 {
@@ -12,6 +13,13 @@ abstract class UserRepository
   {
     $orderBy = request()->get('orderby');
     $query_builder = User::orderBy($orderBy['attribute'] ?? 'id_user', $orderBy['tipo'] ?? 'desc');
-    return $query_builder;
+
+    $filtros = new FiltroNome();
+    $filtros->adcFiltro(new FiltroEmail())
+      ->adcFiltro(new FiltroTipo())
+      ->adcFiltro(new FiltroCPF())
+      ->adcFiltro(new FiltroCNPJ());
+
+    return $filtros->handle($query_builder, $request);
   }
 }
