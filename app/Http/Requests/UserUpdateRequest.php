@@ -31,12 +31,12 @@ class UserUpdateRequest extends FormRequest
           'cpf' => [
             Rule::unique('user')->ignore($this->user, 'id_user'),
             Rule::requiredIf(empty(request()->get('cnpj'))),
-            new \App\Rules\CPFCNPJRule()
+            new \App\Rules\CPFRule()
           ],
           'cnpj' => [
             Rule::unique('user')->ignore($this->user, 'id_user'),
             Rule::requiredIf(empty(request()->get('cpf'))),
-            new \App\Rules\CPFCNPJRule()
+            new \App\Rules\CNPJRule()
           ],
           'tipo' => Rule::in(['lojista', 'usuário', 'usuario']),
           'email' => [

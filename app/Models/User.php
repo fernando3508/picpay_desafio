@@ -27,7 +27,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'nome',
-        'cpf_cnpj',
+        'cpf',
+        'cnpj',
         'tipo',
         'saldo',
         'email',

@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('user', function (Blueprint $table) {
             $table->id('id_user');
             $table->string('nome');
-            $table->string('cpf_cnpj', 255)->unique();
+            $table->string('cpf', 255)->unique()->nullable();
+            $table->string('cnpj', 255)->unique()->nullable();
             $table->string('email')->unique();
             $table->enum('tipo', ['l', 'c'])->default('c');
             $table->decimal('saldo', 10, 2)->default(0);

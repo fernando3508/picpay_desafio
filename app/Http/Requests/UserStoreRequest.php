@@ -31,13 +31,13 @@ class UserStoreRequest extends FormRequest
           ],
           'cpf' => [
             Rule::requiredIf(empty(request()->get('cnpj'))),
-            new \App\Rules\CPFCNPJRule(),
-            'unique:App\Models\User,cpf_cnpj'
+            new \App\Rules\CPFRule(),
+            'unique:App\Models\User,cpf'
           ],
           'cnpj' => [
             Rule::requiredIf(empty(request()->get('cpf'))),
-            new \App\Rules\CPFCNPJRule(),
-            'unique:App\Models\User,cpf_cnpj'
+            new \App\Rules\CNPJRule(),
+            'unique:App\Models\User,cnpj'
           ],
           'tipo' => [
             'required',
