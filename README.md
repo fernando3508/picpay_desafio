@@ -9,6 +9,7 @@ git clone https://github.com/fernando3508/picpay_desafio.git
 cd picpay_desafio
 cp .env.example .env
 docker-compose up -d
+docker exec -it picpay_web composer install
 docker exec -it picpay_web php artisan migrate
 ```
 
